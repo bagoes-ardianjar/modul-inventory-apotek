@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_stock_move_line_detailed_operation_tree_ib" model="ir.ui.view">
+        <field name="name">stock.move.line.operations.tree.inherit.ib</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
+        <field name="arch" type="xml">
+            <field name="product_uom_id" position="after">
+                <field name="expiration_date" string="Expiration Date"/>
+            </field>
+<!--            <xpath expr="//field[@name='lot_id']" position="attributes">-->
+<!--                <attribute name="domain">[('product_id', '=', product_id),-->
+<!--                    ('company_id', '=', company_id),-->
+<!--                    ('id', '=', batch_on_location_id)]</attribute>-->
+<!--            </xpath>-->
+            <field name="lot_id" position="after">
+<!--                edit by ibad-->
+                <field name="lots_visible" invisible="1"/>
+                <!-- <field name="lot_id" groups="stock.group_production_lot"
+                       attrs="{'column_invisible': [('parent.show_lots_text', '=', True)], 'invisible': [('lots_visible', '=', False)]}"
+                       context="{'default_product_id': product_id, 'default_company_id': company_id, 'active_picking_id': picking_id}"
+                       optional="show" string="Batch"/> -->
+            </field>
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="product_on_location_id" widget="many2many_tags" invisible="1" />
+                <field name="batch_on_location_id" widget="many2many_tags" invisible="1"/>
+            </xpath>
+<!--            <xpath expr="//field[@name='product_id']" position="attributes">-->
+<!--                <attribute name="domain">[('type', '!=', 'service'), '|',-->
+<!--                    ('company_id', '=', False),-->
+<!--                    ('company_id', '=', company_id),-->
+<!--                    ('id', '=', product_on_location_id)]</attribute>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+</odoo>
